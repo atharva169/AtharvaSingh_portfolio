@@ -10,12 +10,13 @@ interface Particle {
     vy: number;
     radius: number;
     color: string;
+    phase: number;   // for idle drift
 }
 
 /**
  * CursorEffect — Home-page only.
- * Renders ~3500 colored dots that repel on mouse proximity.
- * All animation loops and event listeners are cleaned up on unmount.
+ * Original repulsion field with subtle idle breathing added.
+ * Slightly more sensitive than the original (radius 110 → 140).
  */
 const CursorEffect: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,6 +30,7 @@ const CursorEffect: React.FC = () => {
         let particles: Particle[] = [];
         let animationId: number;
         let w = 0, h = 0;
+        let frame = 0;
         const mouse = { x: -9999, y: -9999 };
 
         // Google accent palette
@@ -43,10 +45,12 @@ const CursorEffect: React.FC = () => {
                 const x = Math.random() * w;
                 const y = Math.random() * h;
                 particles.push({
-                    x, y, baseX: x, baseY: y,
+                    x, y,
+                    baseX: x, baseY: y,
                     vx: 0, vy: 0,
                     radius: Math.random() * 1.4 + 0.4,
                     color: COLORS[Math.floor(Math.random() * 4)],
+                    phase: Math.random() * Math.PI * 2,
                 });
             }
         };
@@ -57,26 +61,38 @@ const CursorEffect: React.FC = () => {
         };
 
         const draw = () => {
+            frame++;
             ctx.clearRect(0, 0, w, h);
 
             // Batch by color for performance
-            const batches: Record<string, Particle[]> = { '#4285F4': [], '#EA4335': [], '#FBBC05': [], '#34A853': [] };
+            const batches: Record<string, Particle[]> = {
+                '#4285F4': [], '#EA4335': [], '#FBBC05': [], '#34A853': [],
+            };
+
+            const R = 140; // slightly more than original 110
 
             for (const p of particles) {
+                // ── Repulsion ───────────────────────────────────────────────────
                 const dx = mouse.x - p.x;
                 const dy = mouse.y - p.y;
                 const d = Math.sqrt(dx * dx + dy * dy);
-                const R = 110;
 
-                if (d < R) {
+                if (d < R && d > 0) {
                     const force = (R - d) / R;
                     const ang = Math.atan2(dy, dx);
-                    p.vx -= Math.cos(ang) * force * 0.9;
-                    p.vy -= Math.sin(ang) * force * 0.9;
+                    // Slightly stronger than original (0.9 → 1.1)
+                    p.vx -= Math.cos(ang) * force * 1.1;
+                    p.vy -= Math.sin(ang) * force * 1.1;
                 }
 
-                p.vx += (p.baseX - p.x) * 0.055;
-                p.vy += (p.baseY - p.y) * 0.055;
+                // ── Idle breathing — very subtle sin/cos drift ───────────────────
+                // Amplitude 0.6px: barely perceptible, makes the field feel alive
+                const idleX = p.baseX + Math.sin(frame * 0.004 + p.phase) * 0.6;
+                const idleY = p.baseY + Math.cos(frame * 0.004 + p.phase * 1.2) * 0.6;
+
+                // ── Spring + damping (original values) ───────────────────────────
+                p.vx += (idleX - p.x) * 0.055;
+                p.vy += (idleY - p.y) * 0.055;
                 p.vx *= 0.82;
                 p.vy *= 0.82;
                 p.x += p.vx;
@@ -85,6 +101,7 @@ const CursorEffect: React.FC = () => {
                 batches[p.color].push(p);
             }
 
+            // Render
             for (const [color, ps] of Object.entries(batches)) {
                 if (!ps.length) continue;
                 ctx.beginPath();
@@ -99,16 +116,10 @@ const CursorEffect: React.FC = () => {
             animationId = requestAnimationFrame(draw);
         };
 
-        const init = () => {
-            resize();
-            draw();
-        };
-
-        const timer = setTimeout(init, 80);
+        const timer = setTimeout(() => { resize(); draw(); }, 80);
         window.addEventListener('mousemove', onMouseMove);
         window.addEventListener('resize', resize);
 
-        // CLEANUP — runs when navigating away from Home
         return () => {
             clearTimeout(timer);
             cancelAnimationFrame(animationId);
@@ -122,7 +133,7 @@ const CursorEffect: React.FC = () => {
             ref={canvasRef}
             aria-hidden="true"
             className="fixed inset-0 pointer-events-none"
-            style={{ zIndex: 0, opacity: 0.5 }}
+            style={{ zIndex: 0, opacity: 0.55 }}
         />
     );
 };
