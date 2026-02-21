@@ -1,14 +1,14 @@
 
 import { Project, Skill, Experience } from './types';
-import { 
-  Github, 
-  Linkedin, 
+import {
+  Github,
+  Linkedin,
   Mail
 } from 'lucide-react';
 import React from 'react';
 
 export const SOCIAL_LINKS = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/atharva-singh', icon: <Linkedin size={20} /> },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/atharva-singh1/', icon: <Linkedin size={20} /> },
   { name: 'GitHub', url: 'https://github.com/atharva169', icon: <Github size={20} /> },
   { name: 'Email', url: 'mailto:atharvasinghh72@gmail.com', icon: <Mail size={20} /> },
 ];

@@ -1,93 +1,222 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atharva Singh | Developer Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description"
+        content="Atharva Singh — Developer, ML enthusiast, and problem solver. View my projects and get in touch.">
+
+    <!-- Google Fonts: Inter + Space Grotesk + Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@400..900;1,400..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        accent: {
+                            blue: '#4285F4',
+                            red: '#EA4335',
+                            yellow: '#FBBC05',
+                            green: '#34A853',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
+        /* ===== CSS DESIGN SYSTEM VARIABLES ===== */
+        :root {
+            --font-sans: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+
+            /* Colors */
+            --color-bg: #FFFFFF;
+            --color-surface: #F8F8F6;
+            --color-border: #E5E5E5;
+            --color-text-primary: #0A0A0A;
+            --color-text-secondary: #525252;
+            --color-text-muted: #A3A3A3;
+            --color-accent: #2563EB;
+            --color-accent-hover: #1D4ED8;
+
+            /* Scale */
+            --hero-font-size: clamp(3.5rem, 10vw, 8rem);
+            --h2-size: clamp(2rem, 5vw, 5rem);
+            --body-size: 1rem;
+            --small-size: 0.75rem;
+
+            /* Spacing */
+            --section-pad-y: clamp(4rem, 10vh, 8rem);
+            --container-max: 1280px;
+            --container-pad: clamp(1.5rem, 5vw, 3rem);
+        }
+
+        /* ===== GLOBAL BASE ===== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f0ee;
-            color: #000000;
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
             overflow-x: hidden;
             margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+
         #root {
-            perspective: 2500px;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+
+        p {
+            line-height: 1.65;
+        }
+
         .font-heading {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: var(--font-display);
         }
+
         .font-serif {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-serif);
         }
+
+        .font-sans {
+            font-family: var(--font-sans);
+        }
+
+        /* ===== COMPONENTS ===== */
         .glass {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
+
         .parchment {
-            background: #ffffff;
-            background-image: url('https://www.transparenttextures.com/patterns/crinkled-paper.png');
-            border: 1px solid #000000;
-            box-shadow: 6px 6px 0px #000000;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            box-shadow: 4px 4px 0px var(--color-text-primary);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .parchment:hover {
-            transform: translate(-3px, -3px);
-            box-shadow: 12px 12px 0px #000000;
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px var(--color-text-primary);
         }
+
         .btn-black {
-            background: #000000;
+            background: var(--color-text-primary);
             color: #ffffff;
-            transition: all 0.3s ease;
-            border: 1px solid #000000;
-            position: relative;
-            overflow: hidden;
+            border: 2px solid var(--color-text-primary);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
         }
+
         .btn-black:hover {
             background: #ffffff;
-            color: #000000;
+            color: var(--color-text-primary);
         }
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        .btn-accent {
+            background: var(--color-accent);
+            color: #ffffff;
+            border: 2px solid var(--color-accent);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
         }
-        ::-webkit-scrollbar-track {
-            background: #f0f0ee;
+
+        .btn-accent:hover {
+            background: var(--color-accent-hover);
+            border-color: var(--color-accent-hover);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #000000;
-        }
+
+        /* ===== PAPER TEXTURE ===== */
         .paper-texture {
-            background-image: url('https://www.transparenttextures.com/patterns/crinkled-paper.png');
-            background-color: #fcfcfc;
+            background-color: var(--color-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
         }
+
         .page-container {
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #C0C0C0;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+        /* ===== SELECTION ===== */
+        ::selection {
+            background: var(--color-text-primary);
+            color: #ffffff;
         }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.33.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
+
 <body>
     <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
 </body>
+
 </html>
