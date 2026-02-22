@@ -133,7 +133,7 @@ const CursorEffect: React.FC = () => {
             ref={canvasRef}
             aria-hidden="true"
             className="fixed inset-0 pointer-events-none"
-            style={{ zIndex: 20, opacity: 0.45 }}
+            style={{ zIndex: 5, opacity: 0.45 }}
         />
     );
 };

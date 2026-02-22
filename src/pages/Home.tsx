@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, Github, Linkedin, Mail } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
 import TransitionLink from '../components/TransitionLink';
 import CursorEffect from '../components/CursorEffect';
 
@@ -25,165 +26,192 @@ const Home: React.FC = () => {
                     padding: 'var(--section-pad-y) var(--container-pad)',
                 }}
             >
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                    className="space-y-10"
-                >
-                    {/* Eyebrow label */}
+                <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-12">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1, duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-3 py-1.5"
-                        style={{
-                            border: '1px solid var(--color-border)',
-                            background: 'rgba(255,255,255,0.7)',
-                            borderRadius: '2px',
-                        }}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        className="space-y-10 flex-1 z-10"
                     >
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#34A853' }} />
-                        <span
+                        {/* Eyebrow label */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.1, duration: 0.6 }}
+                            className="inline-flex items-center gap-2 px-3 py-1.5"
                             style={{
-                                fontFamily: 'var(--font-sans)',
-                                fontSize: '0.72rem',
-                                fontWeight: 600,
-                                letterSpacing: '0.12em',
-                                textTransform: 'uppercase',
-                                color: 'var(--color-text-secondary)',
+                                border: '1px solid var(--color-border)',
+                                background: 'rgba(255,255,255,0.7)',
+                                borderRadius: '2px',
                             }}
                         >
-                            Available for opportunities
-                        </span>
-                    </motion.div>
-
-                    {/* Main heading */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
-                        className="font-heading select-none"
-                        style={{
-                            fontSize: 'var(--hero-font-size)',
-                            lineHeight: 1.0,
-                            letterSpacing: '-0.03em',
-                            fontWeight: 800,
-                            color: 'var(--color-text-primary)',
-                        }}
-                    >
-                        ATHARVA
-                        <br />
-                        SINGH
-                    </motion.h1>
-
-                    {/* Role identity strip */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.28, duration: 0.6 }}
-                        className="flex flex-wrap items-center gap-2"
-                    >
-                        {['Developer', 'ML Engineer', 'Vibe Coder ✦'].map((role, i) => (
-                            <span key={role} className="inline-flex items-center gap-2">
-                                <span
-                                    style={{
-                                        fontFamily: 'var(--font-sans)',
-                                        fontSize: '0.78rem',
-                                        fontWeight: 600,
-                                        letterSpacing: '0.06em',
-                                        textTransform: 'uppercase',
-                                        color: role.includes('Vibe') ? 'var(--color-accent)' : 'var(--color-text-muted)',
-                                    }}
-                                >
-                                    {role}
-                                </span>
-                                {i < 2 && (
-                                    <span style={{ color: 'var(--color-border)', fontSize: '1rem', lineHeight: 1 }}>·</span>
-                                )}
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#34A853' }} />
+                            <span
+                                style={{
+                                    fontFamily: 'var(--font-sans)',
+                                    fontSize: '0.72rem',
+                                    fontWeight: 600,
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    color: 'var(--color-text-secondary)',
+                                }}
+                            >
+                                Available for opportunities
                             </span>
-                        ))}
-                    </motion.div>
+                        </motion.div>
 
-                    {/* Tagline */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.35, duration: 0.7 }}
-                        className="font-serif"
-                        style={{
-                            fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
-                            lineHeight: 1.5,
-                            color: '#525252',
-                            maxWidth: '36rem',
-                            fontStyle: 'italic',
-                            fontWeight: 400,
-                        }}
-                    >
-                        Driven to build{' '}
-                        <span
-                            className="font-serif not-italic font-bold"
-                            style={{ color: 'var(--color-text-primary)', borderBottom: '2px solid var(--color-accent)', paddingBottom: '1px' }}
-                        >
-                            smart solutions
-                        </span>{' '}
-                        that solve real-world problems.
-                    </motion.p>
-
-                    {/* CTA Row */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.6 }}
-                        className="flex flex-wrap items-center gap-5 pt-2"
-                    >
-                        <TransitionLink
-                            to="/projects"
-                            className="btn-black flex items-center gap-3 px-8 py-3.5 text-xs hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.15)] transition-all duration-200"
-                            style={{ letterSpacing: '0.1em', fontSize: '0.75rem', textDecoration: 'none' }}
-                        >
-                            View Works
-                            <ChevronRight size={16} />
-                        </TransitionLink>
-
-                        <TransitionLink
-                            to="/contact"
-                            className="flex items-center gap-3 px-8 py-3.5 text-xs hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-200"
+                        {/* Main heading */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2, duration: 0.8 }}
+                            className="font-heading select-none"
                             style={{
-                                fontFamily: 'var(--font-sans)',
-                                fontWeight: 700,
-                                letterSpacing: '0.1em',
-                                fontSize: '0.75rem',
-                                textTransform: 'uppercase',
+                                fontSize: 'var(--hero-font-size)',
+                                lineHeight: 1.0,
+                                letterSpacing: '-0.03em',
+                                fontWeight: 800,
                                 color: 'var(--color-text-primary)',
-                                border: '2px solid var(--color-border)',
-                                textDecoration: 'none',
                             }}
                         >
-                            Get In Touch
-                        </TransitionLink>
+                            ATHARVA
+                            <br />
+                            SINGH
+                        </motion.h1>
 
-                        {/* Divider */}
-                        <div style={{ width: '1px', height: '2rem', background: 'var(--color-border)' }} className="hidden sm:block" />
-
-                        {/* Social icons */}
-                        <div className="flex items-center gap-4">
-                            {socials.map(s => (
-                                <a
-                                    key={s.label}
-                                    href={s.url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    title={s.label}
-                                    className="transition-all duration-200 hover:-translate-y-1 hover:scale-110"
-                                    style={{ color: 'var(--color-text-muted)' }}
-                                >
-                                    {s.icon}
-                                </a>
+                        {/* Role identity strip */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.28, duration: 0.6 }}
+                            className="flex flex-wrap items-center gap-2"
+                        >
+                            {['Developer', 'ML Engineer', 'Vibe Coder ✦'].map((role, i) => (
+                                <span key={role} className="inline-flex items-center gap-2">
+                                    <span
+                                        style={{
+                                            fontFamily: 'var(--font-sans)',
+                                            fontSize: '0.78rem',
+                                            fontWeight: 600,
+                                            letterSpacing: '0.06em',
+                                            textTransform: 'uppercase',
+                                            color: role.includes('Vibe') ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                                        }}
+                                    >
+                                        {role}
+                                    </span>
+                                    {i < 2 && (
+                                        <span style={{ color: 'var(--color-border)', fontSize: '1rem', lineHeight: 1 }}>·</span>
+                                    )}
+                                </span>
                             ))}
-                        </div>
+                        </motion.div>
+
+                        {/* Tagline */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.35, duration: 0.7 }}
+                            className="font-serif"
+                            style={{
+                                fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                                lineHeight: 1.5,
+                                color: '#525252',
+                                maxWidth: '36rem',
+                                fontStyle: 'italic',
+                                fontWeight: 400,
+                            }}
+                        >
+                            Driven to build{' '}
+                            <span
+                                className="font-serif not-italic font-bold"
+                                style={{ color: 'var(--color-text-primary)', borderBottom: '2px solid var(--color-accent)', paddingBottom: '1px' }}
+                            >
+                                smart solutions
+                            </span>{' '}
+                            that solve real-world problems.
+                        </motion.p>
+
+                        {/* CTA Row */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.6 }}
+                            className="flex flex-wrap items-center gap-5 pt-2"
+                        >
+                            <TransitionLink
+                                to="/projects"
+                                className="btn-black flex items-center gap-3 px-8 py-3.5 text-xs hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.15)] transition-all duration-200"
+                                style={{ letterSpacing: '0.1em', fontSize: '0.75rem', textDecoration: 'none' }}
+                            >
+                                View Works
+                                <ChevronRight size={16} />
+                            </TransitionLink>
+
+                            <TransitionLink
+                                to="/contact"
+                                className="flex items-center gap-3 px-8 py-3.5 text-xs hover:-translate-y-1 hover:shadow-[4px_4px_0px_rgba(0,0,0,0.12)] transition-all duration-200"
+                                style={{
+                                    fontFamily: 'var(--font-sans)',
+                                    fontWeight: 700,
+                                    letterSpacing: '0.1em',
+                                    fontSize: '0.75rem',
+                                    textTransform: 'uppercase',
+                                    color: 'var(--color-text-primary)',
+                                    border: '2px solid var(--color-border)',
+                                    textDecoration: 'none',
+                                }}
+                            >
+                                Get In Touch
+                            </TransitionLink>
+
+                            {/* Divider */}
+                            <div style={{ width: '1px', height: '2rem', background: 'var(--color-border)' }} className="hidden sm:block" />
+
+                            {/* Social icons */}
+                            <div className="flex items-center gap-4">
+                                {socials.map(s => (
+                                    <a
+                                        key={s.label}
+                                        href={s.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        title={s.label}
+                                        className="transition-all duration-200 hover:-translate-y-1 hover:scale-110"
+                                        style={{ color: 'var(--color-text-muted)' }}
+                                    >
+                                        {s.icon}
+                                    </a>
+                                ))}
+                            </div>
+                        </motion.div>
                     </motion.div>
-                </motion.div>
+
+                    {/* Spline Animation */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-full lg:w-[450px] xl:w-[550px] aspect-square rounded-2xl overflow-hidden pointer-events-auto relative"
+                        style={{
+                            maxWidth: '100%',
+                            marginTop: '2rem',
+                            zIndex: 20,
+                        }}
+                    >
+
+                        <Suspense fallback={
+                            <div className="w-full h-full flex items-center justify-center bg-gray-50/50 rounded-2xl border border-dashed border-gray-200">
+                                <span className="text-sm font-sans text-gray-400 animate-pulse uppercase tracking-widest">Initializing Interactive Scene...</span>
+                            </div>
+                        }>
+                            <Spline
+                                scene="https://prod.spline.design/cmbfDWl4xLzVoqLw/scene.splinecode"
+                                style={{ width: '100%', height: '100%' }}
+                            />
+                        </Suspense>
+                    </motion.div>
+                </div>
             </div>
         </div>
     );

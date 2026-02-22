@@ -11,6 +11,8 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@splinetool/loader": "^1.12.58",
+    "@splinetool/react-spline": "^4.1.0",
     "framer-motion": "^12.33.0",
     "gsap": "^3.14.2",
     "html2canvas": "^1.4.1",
