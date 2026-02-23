@@ -22,8 +22,8 @@ const Contact: React.FC = () => {
         {
             icon: <Linkedin size={22} />,
             label: 'LinkedIn',
-            value: 'linkedin.com/in/atharva-singh1',
-            href: 'https://www.linkedin.com/in/atharva-singh1/',
+            value: 'linkedin.com/in/atharvasingh1',
+            href: 'https://www.linkedin.com/in/atharvasingh1/',
             cta: 'Connect with me',
         },
     ];

@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
                 <div className="flex flex-col items-center md:items-end gap-3">
                     <div className="flex gap-4">
                         <a href="https://github.com/atharva169" target="_blank" rel="noreferrer" style={{ color: 'var(--color-text-muted)' }} className="hover:text-black transition-colors"><Github size={18} /></a>
-                        <a href="https://www.linkedin.com/in/atharva-singh1/" target="_blank" rel="noreferrer" style={{ color: 'var(--color-text-muted)' }} className="hover:text-black transition-colors"><Linkedin size={18} /></a>
+                        <a href="https://www.linkedin.com/in/atharvasingh1/" target="_blank" rel="noreferrer" style={{ color: 'var(--color-text-muted)' }} className="hover:text-black transition-colors"><Linkedin size={18} /></a>
                         <a href="mailto:atharvasinghh72@gmail.com" style={{ color: 'var(--color-text-muted)' }} className="hover:text-black transition-colors"><Mail size={18} /></a>
                     </div>
                     <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', letterSpacing: '0.05em' }}>

@@ -9,7 +9,7 @@ import CursorEffect from '../components/CursorEffect';
 const Home: React.FC = () => {
     const socials = [
         { icon: <Github size={20} />, url: 'https://github.com/atharva169', label: 'GitHub' },
-        { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/atharva-singh1/', label: 'LinkedIn' },
+        { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/atharvasingh1/', label: 'LinkedIn' },
         { icon: <Mail size={20} />, url: 'mailto:atharvasinghh72@gmail.com', label: 'Email' },
     ];
 
